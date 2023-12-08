@@ -27,13 +27,3 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def validate_access_token(request):
-    try:
-        AccessToken(request.accessToken)
-        return Response({"detail": "Access token is valid."}, status=status.HTTP_200_OK)
-    except TokenError:
-        return Response({"detail": "Access token is not valid."}, status=status.HTTP_401_UNAUTHORIZED)
-
